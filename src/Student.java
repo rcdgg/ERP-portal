@@ -148,13 +148,13 @@ public class Student extends User implements Complaints{
 
     protected boolean update_current(){ //only accessible by student and admin, returns true if student passes
         boolean done = true;
-        int gpa = 0;
+        double gpa = 0;
         int count = 0;
         int crdt = 0;
         for(Course c: this.stud_courses){
             int grade = grades.get(c.course_id);
             crdt += c.cred;
-            if(grade == -1 || grade <= 4){ //no grade assigned yet or fail
+            if(grade <= 4){ //no grade assigned yet or fail
                 done = false;
             }
             if(grade > -1) {gpa+= grade; count++;}
