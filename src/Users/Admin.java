@@ -1,13 +1,16 @@
+package Users;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import Users.Exceptions.*;
 
 public class Admin extends User implements Complaints{
-    static ArrayList<Professor> prof_list = new ArrayList<>();
-    static ArrayList<ArrayList<Student>> stud_list = new ArrayList<>();
-    static ArrayList<TA> ta_list = new ArrayList<>();
+    public static ArrayList<Professor> prof_list = new ArrayList<>();
+    public static ArrayList<ArrayList<Student>> stud_list = new ArrayList<>();
+    public static ArrayList<TA> ta_list = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     int stud_id_counter = 1000;
     int prof_id_counter = 100;
@@ -411,7 +414,7 @@ public class Admin extends User implements Complaints{
         complaints.get(sid).get(1).add(complaints.get(sid).get(0).remove(index));
     }
 
-    public Student fetch_stud(ArrayList<String> cred) throws InvalidLoginException{
+    public Student fetch_stud(ArrayList<String> cred) throws InvalidLoginException {
         for(ArrayList<Student> semester: stud_list){
             for(Student s: semester){
                 ArrayList<String> crede = new ArrayList<>(Arrays.asList(s.credentials));
@@ -429,7 +432,7 @@ public class Admin extends User implements Complaints{
         return s;
     }
 
-    public Professor fetch_prof(ArrayList<String> cred) throws InvalidLoginException{
+    public Professor fetch_prof(ArrayList<String> cred) throws InvalidLoginException {
         for(Professor p: prof_list){
             ArrayList<String> crede = new ArrayList<>(Arrays.asList(p.credentials));
             if(crede.equals(cred)){
@@ -444,7 +447,7 @@ public class Admin extends User implements Complaints{
         return p;
     }
 
-    public TA fetch_TA(ArrayList<String> cred) throws InvalidLoginException{
+    public TA fetch_TA(ArrayList<String> cred) throws InvalidLoginException {
         for(TA ta: ta_list){
             ArrayList<String> crede = new ArrayList<>(Arrays.asList(ta.which_stud.credentials));
             if(crede.equals(cred)) return ta;

@@ -1,9 +1,11 @@
+package Users;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TA extends Student{
-    ArrayList<Course> courses_TA = new ArrayList<>();
-    Student which_stud = null;
+    public ArrayList<Course> courses_TA = new ArrayList<>();
+    public Student which_stud = null;
     public TA(Student stud){
         which_stud = stud;
         stud.is_TA = true;
@@ -15,7 +17,7 @@ public class TA extends Student{
         return "TA " + this.which_stud.name + " course list: " + courses_TA;
     }
 
-    public void manage_TA_course(Admin admin){ //if true returned => Student passed semester and admin will call stud_promote
+    public void manage_TA_course(Admin admin){ //if true returned => Users.Student passed semester and admin will call stud_promote
         Scanner s = new Scanner(System.in);
         System.out.println("Course list: " + courses_TA);
         boolean valid = false;

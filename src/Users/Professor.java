@@ -1,3 +1,4 @@
+package Users;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,15 +8,15 @@ import java.util.Scanner;
 public class Professor extends User{
     String office_hours = "3:00 - 4:00 PM";
     ArrayList<Course> prof_courses = new ArrayList<>();
-    Map<Course, Map<Student,Feedback<Object, Object>>> feedbackMap = new HashMap<>();
+    public Map<Course, Map<Student,Feedback<Object, Object>>> feedbackMap = new HashMap<>();
     public Professor(int id, String name, String username, String pass){
         super(id, name, username, pass);
 
     }
     public Professor(){}
     // public void update_courses() {
-    //     List<Course> toRemove = new ArrayList<>();
-    //     for (Course c : prof_courses) {
+    //     List<Users.Course> toRemove = new ArrayList<>();
+    //     for (Users.Course c : prof_courses) {
     //         if (course_exists(c.course_id) == null) {
     //             toRemove.add(c);
     //         }
@@ -50,7 +51,7 @@ public class Professor extends User{
         System.out.println("What do you want to change?");
         OUT:
         while(true){
-            System.out.println("1. Update Syllabus,  2. Credits,  3. Class Schedule,  4. Office Hours,  5. Prerequisites,  6. Enrollment limit, 7. Exit");
+            System.out.println("1. Update Syllabus,  2. Credits,  3. Class Schedule,  4. Office Hours,  5. Prerequisites,  6. Enrollment limit 7. Exit");
             i = s.nextInt();
             switch (i) {
                 case 1 -> {

@@ -1,8 +1,11 @@
+package Users;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import Users.Exceptions.*;
 
 public class Student extends User implements Complaints{
     Scanner s = new Scanner(System.in);
@@ -11,9 +14,9 @@ public class Student extends User implements Complaints{
     int cred = 0;
     double sgpa = 0;
     double cgpa = 0;
-    boolean is_TA = false;
-    ArrayList<Course> stud_courses = new ArrayList<>();
-    ArrayList<Course> completed_courses = new ArrayList<>();
+    public boolean is_TA = false;
+    public ArrayList<Course> stud_courses = new ArrayList<>();
+    public ArrayList<Course> completed_courses = new ArrayList<>();
     Map<Integer, Integer> grades = new HashMap<>(); //maps course id to grade: -1 = no grade, > 4 = pass, <= 4  =  fail
     public Student(int id, String name, String username, String pass){
         super(id, name, username, pass);
@@ -44,7 +47,7 @@ public class Student extends User implements Complaints{
         this.sem++;
     }
 
-    public void register() throws CourseFullException, DeadlinePassedException, InvalidCourseRegistrationException{
+    public void register() throws CourseFullException, DeadlinePassedException, InvalidCourseRegistrationException {
         //add in course stud list as well
         System.out.println("---");
         if(cred >= 20){
@@ -95,7 +98,7 @@ public class Student extends User implements Complaints{
         System.out.println("---");
     }
 
-    public boolean drop() throws DeadlinePassedException{
+    public boolean drop() throws DeadlinePassedException {
         //remember to reduce the cred score as well and also not allow to drop if grade already given
         System.out.println("---");
         System.out.println("Choose from available courses to drop(Enter Course ID): " + this.stud_courses);

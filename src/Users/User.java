@@ -1,4 +1,4 @@
-
+package Users;
 /*  app
 *       user
 *       course
@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public abstract class User {
     static ArrayList<ArrayList<Course>> courses = new ArrayList<>();
-    int id;
+    public int id;
     public String name = "";
     public String[] credentials = new String[2];
     public User(int id, String name, String username, String pass){

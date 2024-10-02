@@ -1,13 +1,15 @@
+package Users;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Course{
     //details
     String course_name;
-    int prof_id;
+    public int prof_id;
     ArrayList<Student> stud_id = new ArrayList<>();
     String prof_name;
-    int sem;
+    public int sem;
     int cred;
     int course_id;
     LocalDate deadline;
