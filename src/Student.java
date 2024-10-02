@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,45 +44,40 @@ public class Student extends User implements Complaints{
         this.sem++;
     }
 
-    public void register(){
+    public void register() throws CourseFullException, DeadlinePassedException, InvalidCourseRegistrationException{
         //add in course stud list as well
         System.out.println("---");
         if(cred >= 20){
             System.out.println("You must drop another course since the credit quota is full!");
             return;
         }
-        System.out.println("Choose from available courses(Enter Course ID): ");
-        this.display_sem_course();
-        int reg_id = s.nextInt();
-        Course c = course_exists(reg_id);
-        boolean valid = true;
-        while(valid){
-            if(c.enrol_limit - c.stud_id.size() <= 0){
-                System.out.println("Course already filled!");
-                valid = false;
-            }
-            else if(!(this.completed_courses.containsAll(c.prereq))){
-                System.out.println("Prerequisites incomplete!");
-                valid = false;
-            }
-            else if(this.cred + c.cred > 20){
-                System.out.println("Overload not allowed!");
-                valid = false;
-            }
-            else if(this.completed_courses.contains(c)){
-                System.out.println("Course already completed!");
-                valid = false;
-            }
-            else if(this.stud_courses.contains(c)){
-                System.out.println("Course already added!");
-                valid = false;
-            }
+        Course c;
+        while(true) {
+            System.out.println("Choose from available courses(Enter Course ID): ");
+            this.display_sem_course();
+            int reg_id = s.nextInt();
+            c = course_exists(reg_id);
+            if(c == null) System.out.println("Wrong course ID!");
             else break;
         }
-        if(!valid) {
-            System.out.println("---");
-            return;
+        //---------- exception checking
+        {
+            if (c.enrol_limit - c.stud_id.size() <= 0) {
+                throw new CourseFullException();
+            } else if (!(this.completed_courses.containsAll(c.prereq))) {
+                throw new InvalidCourseRegistrationException("Prerequisites incomplete!");
+            } else if (this.cred + c.cred > 20) {
+                throw new InvalidCourseRegistrationException("Overload not allowed!");
+            } else if (this.completed_courses.contains(c)) {
+                throw new InvalidCourseRegistrationException("Course already completed!");
+            } else if (this.stud_courses.contains(c)) {
+                throw new InvalidCourseRegistrationException("Course already added!");
+            } else if (c.deadline.isBefore(LocalDate.now())){
+                throw new DeadlinePassedException();
+            }
         }
+        //----------
+
         this.stud_courses.add(c);
         c.stud_id.add(this);
         this.grades.put(c.course_id, -1);
@@ -99,29 +95,26 @@ public class Student extends User implements Complaints{
         System.out.println("---");
     }
 
-    public boolean drop(){
+    public boolean drop() throws DeadlinePassedException{
         //remember to reduce the cred score as well and also not allow to drop if grade already given
         System.out.println("---");
-        System.out.println("Choose from available courses to drop(Enter Course ID): ");
-        this.display_sem_course();
-        int drop_id = s.nextInt();
-        Course c = course_exists(drop_id);
-        boolean valid = true;
-        while(valid){
-            if(this.cred - c.cred < 16){
-                System.out.println("Underload not allowed!");
-                valid = false;
-            }
-            else if(grades.get(c.course_id) != -1){
-                System.out.println("Grade has already been given for this course!");
-                valid = false;
-            }
-            else break;
-        }
-        if(!valid) {
-            System.out.println("---");
+        System.out.println("Choose from available courses to drop(Enter Course ID): " + this.stud_courses);
+        if(stud_courses.isEmpty()){
+            System.out.println("No courses registered yet!");
             return false;
         }
+        Course c;
+        while(true) {
+            int drop_id = s.nextInt();
+            c = course_exists(drop_id);
+            if(c == null) System.out.println("Wrong Course ID!");
+            else break;
+        }
+        if(grades.get(c.course_id) != -1 || c.deadline.isBefore(LocalDate.now())){
+            System.out.println("-------");
+            throw new DeadlinePassedException();
+        }
+
         this.stud_courses.remove(c);
         c.stud_id.remove(this);
         this.cred -= c.cred;
@@ -184,7 +177,7 @@ public class Student extends User implements Complaints{
     
     protected ArrayList<String> view_pending_complaints(){
         if(complaints.containsKey(this.id)){
-            return complaints.get(this.id).get(0);
+            return complaints.get(this.id).getFirst();
         }
         else return null; 
     }
@@ -201,17 +194,17 @@ public class Student extends User implements Complaints{
     }
 
     public void add_complaint(){
-        System.out.printf("Write your complaint: ");
+        System.out.print("Write your complaint: ");
         Scanner s = new Scanner(System.in);
         String com = s.nextLine();
         if(complaints.containsKey(this.id)){
-            complaints.get(this.id).get(0).add(com);
+            complaints.get(this.id).getFirst().add(com);
         }
         else{
             ArrayList<ArrayList<String>> c = new ArrayList<>(2);
             c.add(new ArrayList<>());
             c.add(new ArrayList<>());
-            c.get(0).add(com);
+            c.getFirst().add(com);
             complaints.put(this.id, c);
         }
     }
@@ -222,7 +215,7 @@ public class Student extends User implements Complaints{
             return null;
         }
         System.out.println("Choose from completed courses(Course ID): " + this.completed_courses);
-        Course c = null;
+        Course c;
         while(true){
             int c_id = s.nextInt();
             s.nextLine();

@@ -1,15 +1,17 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Course{
     //details
     String course_name;
-    int prof_id = 0;
+    int prof_id;
     ArrayList<Student> stud_id = new ArrayList<>();
     String prof_name;
-    int sem = 1;
-    int cred = 0;
-    int course_id = 0;
-    ArrayList<Course> prereq = new ArrayList<>();
+    int sem;
+    int cred;
+    int course_id;
+    LocalDate deadline;
+    ArrayList<Course> prereq;
     ArrayList<String> syllabus = new ArrayList<>();
     int[] days = {1,0,1,0,1,0,0}; //days of the week
     String venue = "LHC";
@@ -24,6 +26,7 @@ public class Course{
         this.cred = cred;
         this.course_id = id;
         this.prereq = prereq;
+        deadline = LocalDate.now();
     }
     public ArrayList<String> weekly(){
         ArrayList<String> schedule = new ArrayList<>();
@@ -56,6 +59,7 @@ public class Course{
         System.out.println("Venue: " + venue);
         System.out.println("Class Timings: " + class_timings);
         System.out.println("Weekly schedule: " + weekly());
+        System.out.println("Add/drop deadline: " + deadline);
     }
     public void display_prof(){
         this.display();
@@ -65,9 +69,11 @@ public class Course{
         System.out.println("Course Name: " + course_name);
         System.out.println("Prof Name: " + prof_name);
         Professor p = Admin.prof_exists(prof_id);
+        assert p != null;
         System.out.println("Office hours: " + p.office_hours);
         System.out.println("Course ID: " + course_id);
         System.out.println("Syllabus: " + syllabus);
+        System.out.println("Add/drop deadline: " + deadline);
         System.out.println("Class Timings: " + class_timings);
         System.out.println("Weekly schedule: " + weekly());
     }
