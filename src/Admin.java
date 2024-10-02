@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Admin extends User implements Complaints{
     static ArrayList<Professor> prof_list = new ArrayList<>();
     static ArrayList<ArrayList<Student>> stud_list = new ArrayList<>();
+    static ArrayList<TA> ta_list = new ArrayList<>();
     int stud_id_counter = 1000;
     int prof_id_counter = 100;
     public Admin(){
@@ -439,4 +440,17 @@ public class Admin extends User implements Complaints{
         prof_list.add(p);
         return p;
     }
+
+    public TA fetch_TA(ArrayList<String> cred){
+        for(TA ta: ta_list){
+            ArrayList<String> crede = new ArrayList<>(Arrays.asList(ta.credentials));
+            if(crede.equals(cred)) return ta;
+        }
+        return null;
+    }
+
+    public void add_TA(TA stud){
+        ta_list.add(stud);
+    }
+
 }

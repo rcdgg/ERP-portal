@@ -3,12 +3,19 @@ import java.util.Scanner;
 
 public class TA extends Student{
     ArrayList<Course> courses_TA = new ArrayList<>();
-    public TA(int id, String name, String username, String pass){
-        super(id, name, username, pass);
-        is_TA = true;
+    Student which_stud = null;
+    public TA(Student stud){
+        which_stud = stud;
+        stud.is_TA = true;
     }
-    public boolean manage_TA_course(){ //if true returned => Student passed semester and admin will call stud_promote
-        boolean return_val = false;
+    public TA(){}
+
+    @Override
+    public String toString(){
+        return "TA " + this.name + " course list: " + courses_TA;
+    }
+
+    public void manage_TA_course(Admin admin){ //if true returned => Student passed semester and admin will call stud_promote
         Scanner s = new Scanner(System.in);
         System.out.println("Course list: " + courses_TA);
         boolean valid = false;
@@ -59,7 +66,9 @@ public class TA extends Student{
                     System.out.print("Choose a Grade(integer between 0 - 10): ");
                     int val = (int) s.nextFloat();
                     stud.grades.put(c.course_id, val);
-                    return_val = stud.update_current();
+                    if(stud.update_current()){
+                        admin.stud_promote(stud);
+                    }
                 }
                 case 3 -> {
                     break OUT;
@@ -67,7 +76,6 @@ public class TA extends Student{
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             }
         }
-        return return_val;
     }
     
 }

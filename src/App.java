@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class App {
     //close the Scanner object here only after everything else is executed because we need to keep the System.in channel open for every other function
     static Admin admin = new Admin();   
     static Scanner s = new Scanner(System.in);
-    public static void main(String[] args) throws Exception {       
-        
+    public static void main(String[] args) throws Exception {
+
         while(true) run();
 
     }
@@ -21,16 +22,16 @@ public class App {
     private static void run(){
         System.out.println("=======Welcome to ERP Portal=========");
         while(true){
-            System.out.println("Login as:\n1. Student\n2. Professor\n3. Admin\n4. Exit");
+            System.out.println("Login as:\n1. Student\n2. Professor\n3. Admin\n4. TA\n5. Exit");
             int action = s.nextInt();
             s.nextLine();
-            if(action == 4){
+            if(action == 5){
                 System.out.println("Closing portal...");
                 System.out.println("=====================================\n");
                 s.close();
                 System.exit(0);
             }
-            else if(action > 0 && action < 4) {
+            else if(action > 0 && action < 5) {
                 App.run_sign_page(action);
                 break;
             }
@@ -94,6 +95,21 @@ public class App {
             	}
                 run_admin();
             }
+            case 4 ->{
+                TA ta = new TA();
+                System.out.println("Sign in:");
+
+                while(true) {
+                    cred = login(ta);
+                    ta = admin.fetch_TA(cred);
+                    if (ta == null) {
+                        System.out.println("Wrong username or password! Try again");
+                        ta = new TA();
+                    }
+                    else break;
+                }
+                run_TA(ta);
+            }
             default -> throw new AssertionError();
         }
     }
@@ -103,7 +119,7 @@ public class App {
         while(true){
             System.out.printf("===========Welcome, %s============\n", stud.name);
             System.out.println("Choose Action: ");
-            System.out.println("1. View Available Courses:\n2. Register for Courses:\n3. View Schedule:\n4. Track Academic Progress:\n5. Drop Courses:\n6. View Complaints:\n7. Submit Complaints:\n8. Change Password:\n9. Logout");
+            System.out.println("1. View Available Courses:\n2. Register for Courses:\n3. View Schedule:\n4. Track Academic Progress:\n5. Drop Courses:\n6. View Complaints:\n7. Submit Complaints:\n8. Submit Feedback\n9. Change Password:\n10. Logout");
             int action = s.nextInt();
             switch (action) {
                 case 1 -> {
@@ -137,10 +153,25 @@ public class App {
                 }
                 case 8 -> {
                     System.out.println("---");
-                    stud.changepass();
+                    ArrayList<Object> f = stud.feedback();
+                    if(f == null){
+                        System.out.println("---");
+                        break;
+                    }
+                    Course c = (Course) f.getFirst();
+                    Feedback<Object, Object> feed = (Feedback<Object, Object>) f.getLast();
+                    Professor p = Admin.prof_exists((Integer) c.prof_id);
+                    assert p != null;
+                    p.feedbackMap.putIfAbsent(c, new HashMap<>());
+                    p.feedbackMap.get(c).put(stud, feed);
                     System.out.println("---");
                 }
                 case 9 -> {
+                    System.out.println("---");
+                    stud.changepass();
+                    System.out.println("---");
+                }
+                case 10 -> {
                     System.out.println("Logging out..");
                     break OUT;
                 }
@@ -154,7 +185,7 @@ public class App {
         while(true){
             System.out.printf("===========Welcome, %s============\n", prof.name);
             System.out.println("Choose Action: ");
-            System.out.println("1. Manage your courses:\n2. View enrolled students:\n3. Change Password:\n4. Logout");
+            System.out.println("1. Manage your courses:\n2.Choose TA for your course\n3. View enrolled students:\n4. View Feedback\n5. Change Password:\n6. Logout");
             int action = s.nextInt();
             s.nextLine();
             switch (action) {
@@ -163,17 +194,76 @@ public class App {
                     prof.manage_course();
                     System.out.println("---");
                 }
-                case 2 -> {
+                case 2 ->{
+                    TA ta = null;
                     System.out.println("---");
-                    prof.view_stud();
+                    Course c = prof.course_fetch();
+                    System.out.println("Possible TA candidates: ");
+                    ArrayList<Student> tas = new ArrayList<>();
+                    for(int i = c.sem + 1; i < 9; i++){
+                        for(ArrayList<Student> sem: Admin.stud_list){
+                            for(Student s: sem){
+                                if(s.completed_courses.contains(c)) tas.add(s);
+                            }
+                        }
+                    }
+                    System.out.println(tas);
+                    if(tas.isEmpty()){
+                        System.out.println("No candidates!");
+                        break;
+                    }
+                    while(true){
+                        System.out.print("Enter Student ID: ");
+                        boolean done = false;
+                        int i = s.nextInt();
+                        s.nextLine();
+                        for(Student stud: tas){
+                            if(stud.id == i){
+                                if(!stud.is_TA){
+                                    ta = new TA(stud);
+                                    stud.is_TA = true;
+                                    ta.courses_TA.add(c);
+                                    admin.add_TA(ta);
+                                } else {
+                                    for(TA hh: Admin.ta_list){
+                                        if(hh.which_stud.equals(stud)){
+                                            ta = hh;
+                                            break;
+                                        }
+                                    }
+                                    assert ta != null;
+                                    ta.courses_TA.add(c);
+                                }
+                                done = true;
+                                break;
+                            }
+                        }
+                        if(done){
+                            System.out.println(ta);
+                            break;
+                        }
+                        else{
+                            System.out.println("Enter correct ID!\n" + tas);
+                        }
+                    }
                     System.out.println("---");
                 }
                 case 3 -> {
                     System.out.println("---");
+                    prof.view_stud();
+                    System.out.println("---");
+                }
+                case 4 ->{
+                    System.out.println("---");
+                    prof.view_feedback();
+                    System.out.println("---");
+                }
+                case 5 -> {
+                    System.out.println("---");
                     prof.changepass();
                     System.out.println("---");
                 }
-                case 4 -> {
+                case 6 -> {
                     System.out.println("Logging out..");
                     break OUT;
                 }
@@ -217,6 +307,29 @@ public class App {
                 }
                 
                 case 6 -> {
+                    System.out.println("Logging out..");
+                    break OUT;
+                }
+                default -> System.out.println("Enter correct number!");
+            }
+        }
+    }
+
+    private static void run_TA(TA ta){
+        OUT:
+        while(true){
+            System.out.printf("===========Welcome, %s============\n", ta.name);
+            System.out.println("Choose Action: ");
+            System.out.println("1. Manage your courses:\n2. Logout");
+            int action = s.nextInt();
+            s.nextLine();
+            switch (action) {
+                case 1 -> {
+                    System.out.println("---");
+                    ta.manage_TA_course(admin);
+                    System.out.println("---");
+                }
+                case 2 -> {
                     System.out.println("Logging out..");
                     break OUT;
                 }

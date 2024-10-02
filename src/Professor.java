@@ -1,11 +1,13 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Professor extends User{
     String office_hours = "3:00 - 4:00 PM";
     ArrayList<Course> prof_courses = new ArrayList<>();
-
+    Map<Course, Map<Student,Feedback<Object, Object>>> feedbackMap = new HashMap<>();
     public Professor(int id, String name, String username, String pass){
         super(id, name, username, pass);
     }
@@ -20,7 +22,7 @@ public class Professor extends User{
     //     prof_courses.removeAll(toRemove);  // Remove all invalid courses at once
     // }
     
-    private Course course_fetch(){ //browse through all prof courses and choose one
+    public Course course_fetch(){ //browse through all prof courses and choose one
         Scanner s = new Scanner(System.in);
         System.out.println("Choose a course from your courses: ");
         int i = 1;
@@ -180,5 +182,14 @@ public class Professor extends User{
     public void view_stud(){
         Course view = this.course_fetch();
         System.out.println("List of enrolled students: " + view.stud_id);
+    }
+
+    public void view_feedback(){
+        for(Course c: prof_courses){
+            System.out.printf("%s ------\n", c.course_name);
+            for(Map.Entry<Student, Feedback<Object, Object>> feed : feedbackMap.get(c).entrySet()){
+                System.out.println(feed.getValue());
+            }
+        }
     }
 }

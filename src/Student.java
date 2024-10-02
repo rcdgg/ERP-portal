@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Student extends User implements Complaints{
+    Scanner s = new Scanner(System.in);
     String num = "";
     public int sem = 1;
     int cred = 0;
@@ -49,7 +50,6 @@ public class Student extends User implements Complaints{
             System.out.println("You must drop another course since the credit quota is full!");
             return;
         }
-        Scanner s = new Scanner(System.in);
         System.out.println("Choose from available courses(Enter Course ID): ");
         this.display_sem_course();
         int reg_id = s.nextInt();
@@ -102,7 +102,6 @@ public class Student extends User implements Complaints{
     public boolean drop(){
         //remember to reduce the cred score as well and also not allow to drop if grade already given
         System.out.println("---");
-        Scanner s = new Scanner(System.in);
         System.out.println("Choose from available courses to drop(Enter Course ID): ");
         this.display_sem_course();
         int drop_id = s.nextInt();
@@ -160,7 +159,7 @@ public class Student extends User implements Complaints{
             if(grade > -1) {gpa+= grade; count++;}
             
         }
-        if(crdt < 16) done = false;
+//        if(crdt < 16) done = false;
         if(count == 0) this.sgpa = 0;
         else this.sgpa = gpa/count;
 
@@ -215,6 +214,32 @@ public class Student extends User implements Complaints{
             c.get(0).add(com);
             complaints.put(this.id, c);
         }
+    }
+
+    public ArrayList<Object> feedback(){
+        if(this.completed_courses.isEmpty()){
+            System.out.println("No completed courses yet!");
+            return null;
+        }
+        System.out.println("Choose from completed courses(Course ID): " + this.completed_courses);
+        Course c = null;
+        while(true){
+            int c_id = s.nextInt();
+            s.nextLine();
+            c = course_exists(c_id);
+            if(c == null) System.out.println("Wrong course ID!\n" + "Choose from completed courses(Course ID): " + this.completed_courses);
+            else break;
+        }
+        ArrayList<Object> rtrn = new ArrayList<>(2);
+        System.out.println("Enter rating and/or comments:" );
+        System.out.print("1. ");
+        Object one = s.nextLine().strip();
+        System.out.print("\n2. ");
+        Object two = s.nextLine().strip();
+        Feedback<Object, Object> f = new Feedback<>(one, two);
+        rtrn.add(c);
+        rtrn.add(f);
+        return rtrn;
     }
 
 }

@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class Course{
     //details
-    String course_name = new String();
+    String course_name;
     int prof_id = 0;
     ArrayList<Student> stud_id = new ArrayList<>();
-    String prof_name = new String();
+    String prof_name;
     int sem = 1;
     int cred = 0;
     int course_id = 0;
