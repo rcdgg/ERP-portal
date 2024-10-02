@@ -120,6 +120,7 @@ public class Student extends User implements Complaints{
         this.cred -= c.cred;
         grades.remove(c.course_id);
         System.out.println("---");
+        if(this.stud_courses.isEmpty()) return false;
         return this.update_current();
     }
 
