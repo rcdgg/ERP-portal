@@ -31,6 +31,7 @@ public class App {
                 s.close();
                 System.exit(0);
             }
+            if(action == 4 && Admin.ta_list.isEmpty()) System.out.println("No TAs currently available!");
             else if(action > 0 && action < 5) {
                 App.run_sign_page(action);
                 break;
@@ -50,12 +51,12 @@ public class App {
                 if(l == 1){
                     while(true){
                         cred = login(stud);
-                        stud = admin.fetch_stud(cred);
-                        if(stud == null) {
-                            System.out.println("Wrong username or password! Try again");
-                            stud = new Student();
+                        try {
+                            stud = admin.fetch_stud(cred);
+                            break;
+                        } catch (InvalidLoginException e) {
+                            System.out.println(e.getMessage());
                         }
-                        else break;
                     }
                 }
                 else{
@@ -72,12 +73,12 @@ public class App {
                 if(l == 1){
                     while(true){
                         cred = login(prof);
-                        prof = admin.fetch_prof(cred);
-                        if(prof == null) {
-                            System.out.println("Wrong username or password! Try again");
-                            prof = new Professor();
+                        try {
+                            prof = admin.fetch_prof(cred);
+                            break;
+                        } catch (InvalidLoginException e) {
+                            System.out.println(e.getMessage());
                         }
-                        else break;
                     }
                 }
                 else{
@@ -97,16 +98,16 @@ public class App {
             }
             case 4 ->{
                 TA ta = new TA();
-                System.out.println("Sign in:");
+                System.out.println("Sign in - ");
 
                 while(true) {
                     cred = login(ta);
-                    ta = admin.fetch_TA(cred);
-                    if (ta == null) {
-                        System.out.println("Wrong username or password! Try again");
-                        ta = new TA();
+                    try {
+                        ta = admin.fetch_TA(cred);
+                        break;
+                    } catch (InvalidLoginException e) {
+                        System.out.println(e.getMessage());
                     }
-                    else break;
                 }
                 run_TA(ta);
             }
@@ -128,7 +129,11 @@ public class App {
                     System.out.println("---");
                 }
                 case 2 -> {
-                    stud.register();
+                    try {
+                        stud.register();
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case 3 -> {
                     stud.schedule();
@@ -137,8 +142,13 @@ public class App {
                     stud.track();
                 }
                 case 5 -> {
-                    if(stud.drop()){
-                        admin.stud_promote(stud);
+                    try{
+                        boolean promo = stud.drop();
+                        if(promo){
+                            admin.stud_promote(stud);
+                        }
+                    } catch (DeadlinePassedException e){
+                        System.out.println(e.getMessage());
                     }
                 }
                 case 6 -> {
@@ -185,7 +195,7 @@ public class App {
         while(true){
             System.out.printf("===========Welcome, %s============\n", prof.name);
             System.out.println("Choose Action: ");
-            System.out.println("1. Manage your courses:\n2.Choose TA for your course\n3. View enrolled students:\n4. View Feedback\n5. Change Password:\n6. Logout");
+            System.out.println("1. Manage your courses:\n2. Choose TA for your course\n3. View enrolled students:\n4. View Feedback\n5. Change Password:\n6. Logout");
             int action = s.nextInt();
             s.nextLine();
             switch (action) {
@@ -201,10 +211,8 @@ public class App {
                     System.out.println("Possible TA candidates: ");
                     ArrayList<Student> tas = new ArrayList<>();
                     for(int i = c.sem + 1; i < 9; i++){
-                        for(ArrayList<Student> sem: Admin.stud_list){
-                            for(Student s: sem){
+                            for(Student s: Admin.stud_list.get(i)){
                                 if(s.completed_courses.contains(c)) tas.add(s);
-                            }
                         }
                     }
                     System.out.println(tas);
@@ -277,7 +285,7 @@ public class App {
         while(true){
             System.out.println("===========Welcome, Admin============\n");
             System.out.println("Choose Action: ");
-            System.out.println("1. Add a course:\n2. Delete a course:\n3. Update student records and grades:\n4. Change a course professor\n5. Handle complaints\n6. Logout");
+            System.out.println("1. Add a course:\n2. Delete a course:\n3. Update student records and grades:\n4. Change a course professor\n5. Handle complaints\n6. Change Add/drop deadline\n7. Logout");
             int action = s.nextInt();
             switch (action) {
                 case 1 -> {
@@ -305,8 +313,12 @@ public class App {
                     admin.view_complaints();
                     System.out.println("---");
                 }
-                
-                case 6 -> {
+                case 6 ->{
+                    System.out.println("---");
+                    admin.change_add_drop();
+                    System.out.println("---");
+                }
+                case 7 -> {
                     System.out.println("Logging out..");
                     break OUT;
                 }
@@ -318,7 +330,7 @@ public class App {
     private static void run_TA(TA ta){
         OUT:
         while(true){
-            System.out.printf("===========Welcome, %s============\n", ta.name);
+            System.out.printf("===========Welcome, %s============\n", ta.which_stud.name);
             System.out.println("Choose Action: ");
             System.out.println("1. Manage your courses:\n2. Logout");
             int action = s.nextInt();

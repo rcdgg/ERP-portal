@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Admin extends User implements Complaints{
     static ArrayList<Professor> prof_list = new ArrayList<>();
     static ArrayList<ArrayList<Student>> stud_list = new ArrayList<>();
     static ArrayList<TA> ta_list = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
     int stud_id_counter = 1000;
     int prof_id_counter = 100;
     public Admin(){
@@ -34,6 +37,7 @@ public class Admin extends User implements Complaints{
         Course dc = new Course("DC", vivek.id, vivek.name, 1, 4, 102, new ArrayList<>());
         courses.get(1).add(la);
         courses.get(1).add(dc);
+        stud_list.get(2).get(0).completed_courses.add(la);
         //---
         ArrayList<Course> prereq = new ArrayList<>();
         prereq.add(dc);
@@ -407,7 +411,7 @@ public class Admin extends User implements Complaints{
         complaints.get(sid).get(1).add(complaints.get(sid).get(0).remove(index));
     }
 
-    public Student fetch_stud(ArrayList<String> cred){  
+    public Student fetch_stud(ArrayList<String> cred) throws InvalidLoginException{
         for(ArrayList<Student> semester: stud_list){
             for(Student s: semester){
                 ArrayList<String> crede = new ArrayList<>(Arrays.asList(s.credentials));
@@ -416,7 +420,7 @@ public class Admin extends User implements Complaints{
                 }
             }
         }
-        return null;
+        throw new InvalidLoginException();
     }
     
     public Student add_stud(ArrayList<String> cred){
@@ -425,15 +429,14 @@ public class Admin extends User implements Complaints{
         return s;
     }
 
-    public Professor fetch_prof(ArrayList<String> cred){  
+    public Professor fetch_prof(ArrayList<String> cred) throws InvalidLoginException{
         for(Professor p: prof_list){
             ArrayList<String> crede = new ArrayList<>(Arrays.asList(p.credentials));
             if(crede.equals(cred)){
                 return p;
             }
         }
-        return null;
-    }
+        throw new InvalidLoginException();    }
     
     public Professor add_prof(ArrayList<String> cred){
         Professor p = new Professor(prof_id_counter++, cred.get(2), cred.get(0), cred.get(1));  
@@ -441,16 +444,42 @@ public class Admin extends User implements Complaints{
         return p;
     }
 
-    public TA fetch_TA(ArrayList<String> cred){
+    public TA fetch_TA(ArrayList<String> cred) throws InvalidLoginException{
         for(TA ta: ta_list){
-            ArrayList<String> crede = new ArrayList<>(Arrays.asList(ta.credentials));
+            ArrayList<String> crede = new ArrayList<>(Arrays.asList(ta.which_stud.credentials));
             if(crede.equals(cred)) return ta;
         }
-        return null;
-    }
+        throw new InvalidLoginException();    }
 
     public void add_TA(TA stud){
         ta_list.add(stud);
     }
 
+    private void inputDeadline(int sem) {
+        System.out.printf("Enter new Add/drop deadline for Semester %d (yyyy-mm-dd): ", sem);
+
+        try {
+            String input = sc.nextLine();
+            LocalDate deadline = LocalDate.parse(input);
+            for(Course c: courses.get(sem)){
+                c.deadline = deadline;
+            }
+            System.out.println("Deadline set successfully: " + deadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format!");
+        }
+    }
+
+    public void change_add_drop(){
+        System.out.print("Choose a semester: ");
+        int sem = sc.nextInt();
+        sc.nextLine();
+        while(sem > 9 || sem < 1){
+            System.out.println("Not a valid course!");
+            System.out.print("Choose a semester: ");
+            sem = sc.nextInt();
+            sc.nextLine();
+        }
+        inputDeadline(sem);
+    }
 }

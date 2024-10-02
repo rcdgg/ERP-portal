@@ -10,6 +10,7 @@ public class Professor extends User{
     Map<Course, Map<Student,Feedback<Object, Object>>> feedbackMap = new HashMap<>();
     public Professor(int id, String name, String username, String pass){
         super(id, name, username, pass);
+
     }
     public Professor(){}
     // public void update_courses() {
@@ -30,12 +31,13 @@ public class Professor extends User{
         System.out.println((i++) + ". " + c);
         }
         while(true){
-            System.out.printf("Enter course index: ");
+            System.out.print("Enter course ID: ");
             i = s.nextInt();
-            if(i < 1 || i > this.prof_courses.size()) System.out.println("Not a valid course index!");
-            else break;
+            for(Course c: this.prof_courses){
+                if (c.course_id == i) return c;
+            }
+            System.out.println("Wrong Course ID!");
         }
-        return this.prof_courses.get(i - 1);
     }
     
     public void manage_course(){
@@ -187,6 +189,7 @@ public class Professor extends User{
     public void view_feedback(){
         for(Course c: prof_courses){
             System.out.printf("%s ------\n", c.course_name);
+            feedbackMap.putIfAbsent(c, new HashMap<>());
             for(Map.Entry<Student, Feedback<Object, Object>> feed : feedbackMap.get(c).entrySet()){
                 System.out.println(feed.getValue());
             }

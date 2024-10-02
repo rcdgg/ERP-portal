@@ -12,7 +12,7 @@ public class TA extends Student{
 
     @Override
     public String toString(){
-        return "TA " + this.name + " course list: " + courses_TA;
+        return "TA " + this.which_stud.name + " course list: " + courses_TA;
     }
 
     public void manage_TA_course(Admin admin){ //if true returned => Student passed semester and admin will call stud_promote
@@ -38,6 +38,10 @@ public class TA extends Student{
         OUT:
         while(true){
             System.out.println("Student list: " + c.stud_id);
+            if(c.stud_id.isEmpty()){
+                System.out.println("No one has registered for the course yet!");
+                return;
+            }
             valid = false;
             Student stud = new Student();
             while(true) {
@@ -55,7 +59,7 @@ public class TA extends Student{
                 if(!valid) System.out.println("Wrong student ID!");
                 else break;
             }
-            System.out.println("\n1. View current grade\n2. Change grade\n 3. Exit");
+            System.out.println("\n1. View current grade\n2. Change grade\n3. Exit");
             int i = s.nextInt();
             s.nextLine();
             switch (i) {
