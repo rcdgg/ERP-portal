@@ -1,0 +1,289 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "Users.Admin",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_82025960 { 
+   	label=Users
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   Admin82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Admin</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   prof_id_counter: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   sc: Scanner [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   stud_id_counter: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ add_TA(stud: TA)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ add_course()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ add_prof(cred: ArrayList&lt;String&gt;): Professor</TD></TR>
+<TR><TD ALIGN="LEFT" >+ add_stud(cred: ArrayList&lt;String&gt;): Student</TD></TR>
+<TR><TD ALIGN="LEFT" >+ change_add_drop()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ change_prof()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ del_course()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fetch_TA(cred: ArrayList&lt;String&gt;): TA</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fetch_prof(cred: ArrayList&lt;String&gt;): Professor</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fetch_stud(cred: ArrayList&lt;String&gt;): Student</TD></TR>
+<TR><TD ALIGN="LEFT" >- inputDeadline(sem: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ prof_exists(prof_id: int): Professor</TD></TR>
+<TR><TD ALIGN="LEFT" >- resolve_complaint(sid: int, index: int, s: Scanner)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ stud_exists(stud_id: int): Student</TD></TR>
+<TR><TD ALIGN="LEFT" >+ stud_manage()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ stud_promote(s: Student)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ view_complaints()</TD></TR>
+<TR><TD ALIGN="LEFT" ># view_pending_complaints(stud_id: int): ArrayList&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" ># view_resolved_complaints(stud_id: int): ArrayList&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Course82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Course</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   class_timings: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   course_id: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   course_name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cred: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   days: int[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   deadline: LocalDate [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   enrol_limit: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   prereq: ArrayList&lt;Course&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   prof_id: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   prof_name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   sem: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   stud_id: ArrayList&lt;Student&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   syllabus: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   venue: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display_prof()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display_stud()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ weekly(): ArrayList&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Feedback82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Feedback&lt;T, V&gt;</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   feedback: ArrayList&lt;Object&gt; [0..*]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Professor82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Professor</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   feedbackMap: Map&lt;Course, Map&lt;Student, Feedback&lt;Object, Object&gt;&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   office_hours: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   prof_courses: ArrayList&lt;Course&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ course_fetch(): Course</TD></TR>
+<TR><TD ALIGN="LEFT" >+ manage_course()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ view_feedback()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ view_stud()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Student82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Student</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   cgpa: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   completed_courses: ArrayList&lt;Course&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cred: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   grades: Map&lt;Integer, Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   is_TA: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   num: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   s: Scanner [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   sem: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   sgpa: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   stud_courses: ArrayList&lt;Course&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ add_complaint()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display_sem_course()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ drop(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ feedback(): ArrayList&lt;Object&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ register()</TD></TR>
+<TR><TD ALIGN="LEFT" >- reset()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ schedule()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ track()</TD></TR>
+<TR><TD ALIGN="LEFT" ># update_current(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ view_complaints()</TD></TR>
+<TR><TD ALIGN="LEFT" ># view_pending_complaints(): ArrayList&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" ># view_resolved_complaints(): ArrayList&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TA82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TA</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   courses_TA: ArrayList&lt;Course&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   which_stud: Student [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ manage_TA_course(admin: Admin)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+User82025960[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)User</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   credentials: String[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   id: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   name: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ changepass()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ course_exists(course_id: int): Course</TD></TR>
+<TR><TD ALIGN="LEFT" >+ display_sem_course(sem: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ login(): ArrayList&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ signup(): ArrayList&lt;String&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ view_courses()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+Admin82025960 -> Student82025960[arrowhead=none];
+Course82025960 -> Admin82025960[label="display_stud() -> prof_exists()"];
+Course82025960 -> Student82025960[label="stud_id
+[0..*]"];
+Professor82025960 -> Course82025960[label="feedbackMap
+[0..*]"];
+Professor82025960 -> Course82025960[label="prof_courses
+[0..*]"];
+Professor82025960 -> Feedback82025960[label="feedbackMap
+[0..*]"];
+Professor82025960 -> Student82025960[label="feedbackMap
+[0..*]"];
+Student82025960 -> Course82025960[label="completed_courses
+[0..*]"];
+Student82025960 -> Course82025960[label="stud_courses
+[0..*]"];
+Student82025960 -> TA82025960[arrowhead=none, arrowtail=empty, dir=both];
+TA82025960 -> Admin82025960[label="manage_TA_course() -> stud_promote()"];
+TA82025960 -> Course82025960[label="courses_TA
+[0..*]"];
+TA82025960 -> Student82025960[label="which_stud
+[0..1]"];
+TA82025960 -> User82025960[label="manage_TA_course() -> course_exists()"];
+User82025960 -> Admin82025960[arrowhead=none, arrowtail=empty, dir=both];
+User82025960 -> Course82025960[label="display_sem_course() -> display()"];
+User82025960 -> Professor82025960[arrowhead=none, arrowtail=empty, dir=both];
+User82025960 -> Student82025960[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml

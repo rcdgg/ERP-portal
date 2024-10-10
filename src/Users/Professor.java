@@ -105,8 +105,7 @@ public class Professor extends User{
                 case 4 -> {
                 	s.nextLine();
                     System.out.print("Enter Office hours: ");
-                    String h = s.nextLine();
-                    this.office_hours = h;
+                    this.office_hours = s.nextLine();
                 }
                 case 5 -> {
                     //make sure to add a valid course as the prereq is used in student methods
@@ -117,11 +116,11 @@ public class Professor extends User{
                     }
                 OUTER:
                 while (true) {
-                    System.out.printf("Do you want to 1. Add, 2. Remove, 3. Exit: ");
+                    System.out.println("Do you want to 1. Add, 2. Remove, 3. Exit: ");
                     int action = s.nextInt();
                     switch (action) {
                         case 1 -> {
-                            int ss = 0;
+                            int ss;
                             while(true){
                                 while(true){
                                 System.out.println("Choose a semester less than the course sem (" + manage.sem + ")");
@@ -142,7 +141,7 @@ public class Professor extends User{
                                     break;
                                 }
                             }
-                            System.out.printf("Do you want to add more prerequisites? (y/n): ");
+                            System.out.print("Do you want to add more prerequisites? (y/n): ");
                             String ans = s.nextLine().strip();
                             if(ans.equalsIgnoreCase("No") || ans.equalsIgnoreCase("n")) break;
                         }

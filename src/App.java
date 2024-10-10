@@ -7,13 +7,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+//**use setters/ getters maybe for accessing the static variables that i did
+
 public class App {
     //close the Scanner object here only after everything else is executed because we need to keep the System.in channel open for every other function
     static Admin admin = new Admin();
     static Scanner s = new Scanner(System.in);
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        while(true) run();
+        run();
 
     }
 
@@ -27,7 +29,17 @@ public class App {
         System.out.println("=======Welcome to ERP Portal=========");
         while(true){
             System.out.println("Login as:\n1. Student\n2. Professor\n3. Admin\n4. TA\n5. Exit");
-            int action = s.nextInt();
+            String act;
+            int action;
+            while(true) {
+                try {
+                    act = s.nextLine().strip();
+                    action = Integer.parseInt(act);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Enter a number!");
+                }
+            }
             s.nextLine();
             if(action == 5){
                 System.out.println("Closing portal...");
@@ -50,9 +62,19 @@ public class App {
             case 1 -> {
                 Student stud = new Student();
                 System.out.println("1. Sign in\n2. Sign up\n");
-                int l = s.nextInt();
+                String act;
+                int action;
+                while(true) {
+                    try {
+                        act = s.nextLine().strip();
+                        action = Integer.parseInt(act);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Enter a number!");
+                    }
+                }
                 s.nextLine();
-                if(l == 1){
+                if(action == 1){
                     while(true){
                         cred = login(stud);
                         try {
@@ -72,9 +94,19 @@ public class App {
             case 2 -> {
                 Professor prof = new Professor();
                 System.out.println("1. Sign in\n2. Sign up\n");
-                int l = s.nextInt();
+                String act;
+                int action;
+                while(true) {
+                    try {
+                        act = s.nextLine().strip();
+                        action = Integer.parseInt(act);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Enter a number!");
+                    }
+                }
                 s.nextLine();
-                if(l == 1){
+                if(action == 1){
                     while(true){
                         cred = login(prof);
                         try {
@@ -125,7 +157,17 @@ public class App {
             System.out.printf("===========Welcome, %s============\n", stud.name);
             System.out.println("Choose Action: ");
             System.out.println("1. View Available Courses:\n2. Register for Courses:\n3. View Schedule:\n4. Track Academic Progress:\n5. Drop Courses:\n6. View Complaints:\n7. Submit Complaints:\n8. Submit Feedback\n9. Change Password:\n10. Logout");
-            int action = s.nextInt();
+            String act;
+            int action;
+            while(true) {
+                try {
+                    act = s.nextLine().strip();
+                    action = Integer.parseInt(act);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Enter a number!");
+                }
+            }
             switch (action) {
                 case 1 -> {
                     System.out.printf("--- Semester %d --- \n", stud.sem);
@@ -139,12 +181,8 @@ public class App {
                         System.out.println(e.getMessage());
                     }
                 }
-                case 3 -> {
-                    stud.schedule();
-                }
-                case 4 -> {
-                    stud.track();
-                }
+                case 3 -> stud.schedule();
+                case 4 -> stud.track();
                 case 5 -> {
                     try{
                         boolean promo = stud.drop();
@@ -174,7 +212,7 @@ public class App {
                     }
                     Course c = (Course) f.getFirst();
                     Feedback<Object, Object> feed = (Feedback<Object, Object>) f.getLast();
-                    Professor p = Admin.prof_exists((Integer) c.prof_id);
+                    Professor p = Admin.prof_exists(c.prof_id);
                     assert p != null;
                     p.feedbackMap.putIfAbsent(c, new HashMap<>());
                     p.feedbackMap.get(c).put(stud, feed);
@@ -200,7 +238,17 @@ public class App {
             System.out.printf("===========Welcome, %s============\n", prof.name);
             System.out.println("Choose Action: ");
             System.out.println("1. Manage your courses:\n2. Choose TA for your course\n3. View enrolled students:\n4. View Feedback\n5. Change Password:\n6. Logout");
-            int action = s.nextInt();
+            String act;
+            int action;
+            while(true) {
+                try {
+                    act = s.nextLine().strip();
+                    action = Integer.parseInt(act);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Enter a number!");
+                }
+            }
             s.nextLine();
             switch (action) {
                 case 1 -> {
@@ -290,7 +338,17 @@ public class App {
             System.out.println("===========Welcome, Admin============\n");
             System.out.println("Choose Action: ");
             System.out.println("1. Add a course:\n2. Delete a course:\n3. Update student records and grades:\n4. Change a course professor\n5. Handle complaints\n6. Change Add/drop deadline\n7. Logout");
-            int action = s.nextInt();
+            String act;
+            int action;
+            while(true) {
+                try {
+                    act = s.nextLine().strip();
+                    action = Integer.parseInt(act);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Enter a number!");
+                }
+            }
             switch (action) {
                 case 1 -> {
                     System.out.println("---");
@@ -337,7 +395,17 @@ public class App {
             System.out.printf("===========Welcome, %s============\n", ta.which_stud.name);
             System.out.println("Choose Action: ");
             System.out.println("1. Manage your courses:\n2. Logout");
-            int action = s.nextInt();
+            String act;
+            int action;
+            while(true) {
+                try {
+                    act = s.nextLine().strip();
+                    action = Integer.parseInt(act);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Enter a number!");
+                }
+            }
             s.nextLine();
             switch (action) {
                 case 1 -> {
