@@ -24,8 +24,17 @@ public class TA extends Student{
         Course c = null;
         while(!valid) {
             System.out.print("Choose a course by ID: ");
-            int c_id = s.nextInt();
-            s.nextLine();
+            int c_id;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    c_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             try {
                 c = course_exists(c_id);
                 assert c != null : "Wrong course ID!\n";
@@ -48,8 +57,17 @@ public class TA extends Student{
             Student stud = new Student();
             while(true) {
                 System.out.print("Choose student by ID to update grades: ");
-                int s_id = s.nextInt();
-                s.nextLine();
+                int s_id;
+                while(true) {
+                    try {
+                        String ss = s.nextLine();
+                        s_id = Integer.parseInt(ss);
+                        break;
+                    } catch (NumberFormatException e){
+                        System.out.println("Enter correct ID");
+                        continue;
+                    }
+                }
                 stud = new Student();
                 for (Student i : c.stud_id) {
                     if (i.id == s_id) {
@@ -62,8 +80,17 @@ public class TA extends Student{
                 else break;
             }
             System.out.println("\n1. View current grade\n2. Change grade\n3. Exit");
-            int i = s.nextInt();
-            s.nextLine();
+            int i;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    i = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             switch (i) {
                 case 1 -> {
                     System.out.printf("%s : %d\n", c.course_name, stud.grades.get(c.course_id));

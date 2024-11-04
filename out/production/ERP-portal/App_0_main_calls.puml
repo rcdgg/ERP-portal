@@ -1,0 +1,607 @@
+@startuml
+
+/' diagram meta data start
+config=CallConfiguration;
+{
+  "rootMethod": "App#main(String[])",
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showMethodParametersTypes": false,
+    "showMethodParametersNames": false,
+    "showMethodReturnType": false,
+    "showPackageLevels": 2,
+    "showCallOrder": false,
+    "edgeMode": "MethodsOnly", // TypesOnly, MethodsOnly, TypesAndMethods, MethodsAndDirectTypeUsage
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "App",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="LR"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_66049 { 
+   	label=App
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_869532820 { 
+   	label=App
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   App66049XXXmain1859653459[
+	label="+ main()"
+	style=filled
+	fillcolor=white
+	tooltip="App
+
+null"
+	penwidth=4
+	fontcolor=darkgreen
+];
+} 
+} 
+
+subgraph cluster_82025960 { 
+   	label=Users
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_141257777 { 
+   	label=User
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   User82025960XXXchangepass0[
+	label="+ changepass()"
+	style=filled
+	fillcolor=white
+	tooltip="User
+
+null"
+	fontcolor=darkgreen
+];
+
+User82025960XXXcourse_exists104431[
+	label="+ course_exists()"
+	style=filled
+	fillcolor=white
+	tooltip="User
+
+null"
+	fontcolor=darkgreen
+];
+
+User82025960XXXdisplay_sem_course104431[
+	label="+ display_sem_course()"
+	style=filled
+	fillcolor=white
+	tooltip="User
+
+null"
+	fontcolor=darkgreen
+];
+
+User82025960XXXlogin0[
+	label="+ login()"
+	style=filled
+	fillcolor=white
+	tooltip="User
+
+null"
+	fontcolor=darkgreen
+];
+
+User82025960XXXsignup0[
+	label="+ signup()"
+	style=filled
+	fillcolor=white
+	tooltip="User
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_1705533461 { 
+   	label=Student
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Student82025960XXXadd_complaint0[
+	label="+ add_complaint()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXdisplay0[
+	label="+ display()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXdisplay_sem_course0[
+	label="+ display_sem_course()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXdrop0[
+	label="+ drop()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXfeedback0[
+	label="+ feedback()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXregister0[
+	label="+ register()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXschedule0[
+	label="+ schedule()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXtrack0[
+	label="+ track()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+
+Student82025960XXXview_complaints0[
+	label="+ view_complaints()"
+	style=filled
+	fillcolor=white
+	tooltip="Student
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_200970189 { 
+   	label=TA
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   TA82025960XXXmanage_TA_course63116079[
+	label="+ manage_TA_course()"
+	style=filled
+	fillcolor=white
+	tooltip="TA
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_2086199041 { 
+   	label=Course
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Course82025960XXXdisplay0[
+	label="+ display()"
+	style=filled
+	fillcolor=white
+	tooltip="Course
+
+null"
+	fontcolor=darkgreen
+];
+
+Course82025960XXXdisplay_prof0[
+	label="+ display_prof()"
+	style=filled
+	fillcolor=white
+	tooltip="Course
+
+null"
+	fontcolor=darkgreen
+];
+
+Course82025960XXXdisplay_stud0[
+	label="+ display_stud()"
+	style=filled
+	fillcolor=white
+	tooltip="Course
+
+null"
+	fontcolor=darkgreen
+];
+
+Course82025960XXXweekly0[
+	label="+ weekly()"
+	style=filled
+	fillcolor=white
+	tooltip="Course
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_65114025 { 
+   	label=Admin
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Admin82025960XXXadd_TA2669[
+	label="+ add_TA()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXadd_course0[
+	label="+ add_course()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXadd_prof719111704[
+	label="+ add_prof()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXadd_stud719111704[
+	label="+ add_stud()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXchange_add_drop0[
+	label="+ change_add_drop()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXchange_prof0[
+	label="+ change_prof()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXdel_course0[
+	label="+ del_course()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXfetch_TA719111704[
+	label="+ fetch_TA()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXfetch_prof719111704[
+	label="+ fetch_prof()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXfetch_stud719111704[
+	label="+ fetch_stud()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXprof_exists104431[
+	label="+ prof_exists()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXstud_exists104431[
+	label="+ stud_exists()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXstud_manage0[
+	label="+ stud_manage()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXstud_promote214492645[
+	label="+ stud_promote()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+
+Admin82025960XXXview_complaints0[
+	label="+ view_complaints()"
+	style=filled
+	fillcolor=white
+	tooltip="Admin
+
+null"
+	fontcolor=darkgreen
+];
+} 
+
+subgraph cluster_695753271 { 
+   	label=Professor
+	labeljust=l
+	fillcolor=white
+	style=filled
+   
+   Professor82025960XXXcourse_fetch0[
+	label="+ course_fetch()"
+	style=filled
+	fillcolor=white
+	tooltip="Professor
+
+null"
+	fontcolor=darkgreen
+];
+
+Professor82025960XXXmanage_course0[
+	label="+ manage_course()"
+	style=filled
+	fillcolor=white
+	tooltip="Professor
+
+null"
+	fontcolor=darkgreen
+];
+
+Professor82025960XXXview_feedback0[
+	label="+ view_feedback()"
+	style=filled
+	fillcolor=white
+	tooltip="Professor
+
+null"
+	fontcolor=darkgreen
+];
+
+Professor82025960XXXview_stud0[
+	label="+ view_stud()"
+	style=filled
+	fillcolor=white
+	tooltip="Professor
+
+null"
+	fontcolor=darkgreen
+];
+} 
+} 
+
+'edges    
+Admin82025960XXXadd_course0 -> Admin82025960XXXprof_exists104431;
+Admin82025960XXXadd_course0 -> User82025960XXXcourse_exists104431;
+Admin82025960XXXadd_course0 -> User82025960XXXdisplay_sem_course104431;
+Admin82025960XXXchange_prof0 -> Admin82025960XXXprof_exists104431;
+Admin82025960XXXchange_prof0 -> User82025960XXXcourse_exists104431;
+Admin82025960XXXdel_course0 -> Admin82025960XXXprof_exists104431;
+Admin82025960XXXdel_course0 -> Admin82025960XXXstud_promote214492645;
+Admin82025960XXXdel_course0 -> User82025960XXXcourse_exists104431;
+Admin82025960XXXdel_course0 -> User82025960XXXdisplay_sem_course104431;
+Admin82025960XXXstud_manage0 -> Admin82025960XXXstud_exists104431;
+Admin82025960XXXstud_manage0 -> Admin82025960XXXstud_promote214492645;
+Admin82025960XXXstud_manage0 -> Student82025960XXXdisplay0;
+Admin82025960XXXview_complaints0 -> Admin82025960XXXstud_exists104431;
+Admin82025960XXXview_complaints0 -> Student82025960XXXview_complaints0;
+App66049XXXmain1859653459 -> Admin82025960XXXadd_TA2669;
+App66049XXXmain1859653459 -> Admin82025960XXXadd_course0;
+App66049XXXmain1859653459 -> Admin82025960XXXadd_prof719111704;
+App66049XXXmain1859653459 -> Admin82025960XXXadd_stud719111704;
+App66049XXXmain1859653459 -> Admin82025960XXXchange_add_drop0;
+App66049XXXmain1859653459 -> Admin82025960XXXchange_prof0;
+App66049XXXmain1859653459 -> Admin82025960XXXdel_course0;
+App66049XXXmain1859653459 -> Admin82025960XXXfetch_TA719111704;
+App66049XXXmain1859653459 -> Admin82025960XXXfetch_prof719111704;
+App66049XXXmain1859653459 -> Admin82025960XXXfetch_stud719111704;
+App66049XXXmain1859653459 -> Admin82025960XXXprof_exists104431;
+App66049XXXmain1859653459 -> Admin82025960XXXstud_manage0;
+App66049XXXmain1859653459 -> Admin82025960XXXstud_promote214492645;
+App66049XXXmain1859653459 -> Admin82025960XXXview_complaints0;
+App66049XXXmain1859653459 -> Professor82025960XXXcourse_fetch0;
+App66049XXXmain1859653459 -> Professor82025960XXXmanage_course0;
+App66049XXXmain1859653459 -> Professor82025960XXXview_feedback0;
+App66049XXXmain1859653459 -> Professor82025960XXXview_stud0;
+App66049XXXmain1859653459 -> Student82025960XXXadd_complaint0;
+App66049XXXmain1859653459 -> Student82025960XXXdisplay_sem_course0;
+App66049XXXmain1859653459 -> Student82025960XXXdrop0;
+App66049XXXmain1859653459 -> Student82025960XXXfeedback0;
+App66049XXXmain1859653459 -> Student82025960XXXregister0;
+App66049XXXmain1859653459 -> Student82025960XXXschedule0;
+App66049XXXmain1859653459 -> Student82025960XXXtrack0;
+App66049XXXmain1859653459 -> Student82025960XXXview_complaints0;
+App66049XXXmain1859653459 -> TA82025960XXXmanage_TA_course63116079;
+App66049XXXmain1859653459 -> User82025960XXXchangepass0;
+App66049XXXmain1859653459 -> User82025960XXXlogin0;
+App66049XXXmain1859653459 -> User82025960XXXsignup0;
+Course82025960XXXdisplay_prof0 -> Course82025960XXXdisplay0;
+Course82025960XXXdisplay_stud0 -> Admin82025960XXXprof_exists104431;
+Course82025960XXXdisplay_stud0 -> Course82025960XXXweekly0;
+Professor82025960XXXmanage_course0 -> Course82025960XXXdisplay_prof0;
+Professor82025960XXXmanage_course0 -> Course82025960XXXweekly0;
+Professor82025960XXXmanage_course0 -> Professor82025960XXXcourse_fetch0;
+Professor82025960XXXmanage_course0 -> User82025960XXXcourse_exists104431;
+Professor82025960XXXmanage_course0 -> User82025960XXXdisplay_sem_course104431;
+Professor82025960XXXview_stud0 -> Professor82025960XXXcourse_fetch0;
+Student82025960XXXdisplay_sem_course0 -> User82025960XXXdisplay_sem_course104431;
+Student82025960XXXdrop0 -> User82025960XXXcourse_exists104431;
+Student82025960XXXfeedback0 -> User82025960XXXcourse_exists104431;
+Student82025960XXXregister0 -> Student82025960XXXdisplay_sem_course0;
+Student82025960XXXregister0 -> User82025960XXXcourse_exists104431;
+Student82025960XXXschedule0 -> Course82025960XXXdisplay_stud0;
+TA82025960XXXmanage_TA_course63116079 -> Admin82025960XXXstud_promote214492645;
+TA82025960XXXmanage_TA_course63116079 -> Course82025960XXXdisplay_prof0;
+TA82025960XXXmanage_TA_course63116079 -> User82025960XXXcourse_exists104431;
+User82025960XXXdisplay_sem_course104431 -> Course82025960XXXdisplay0;
+    
+}
+@enduml

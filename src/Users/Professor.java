@@ -33,7 +33,16 @@ public class Professor extends User{
         }
         while(true){
             System.out.print("Enter course ID: ");
-            i = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    i = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             for(Course c: this.prof_courses){
                 if (c.course_id == i) return c;
             }
@@ -52,11 +61,19 @@ public class Professor extends User{
         OUT:
         while(true){
             System.out.println("1. Update Syllabus,  2. Credits,  3. Class Schedule,  4. Office Hours,  5. Prerequisites,  6. Enrollment limit 7. Exit");
-            i = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    i = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct index");
+                    continue;
+                }
+            }
             switch (i) {
                 case 1 -> {
                     System.out.println("Current syllabus: " + manage.syllabus);
-                    s.nextLine();
                     while (true) { 
                         System.out.print("Add to syllabus(-1 to exit): ");
                         String syll = s.nextLine().strip();
@@ -69,12 +86,20 @@ public class Professor extends User{
                 }                    
                 case 2 -> {
                     System.out.print("Enter credits: ");
-                    int cred = s.nextInt();
-                    s.nextLine();
+                    int cred;
+                    while(true) {
+                        try {
+                            String ss = s.nextLine();
+                            cred = Integer.parseInt(ss);
+                            break;
+                        } catch (NumberFormatException e){
+                            System.out.println("Enter correct ID");
+                            continue;
+                        }
+                    }
                     manage.cred = cred;
                 }
                 case 3 -> {
-                	s.nextLine();
                     System.out.print("Enter class timings(-1 to not change): ");
                     String t = s.nextLine().strip();
                     if(!("-1".equals(t))) manage.class_timings = t;
@@ -103,7 +128,6 @@ public class Professor extends User{
                     }
                 }
                 case 4 -> {
-                	s.nextLine();
                     System.out.print("Enter Office hours: ");
                     this.office_hours = s.nextLine();
                 }
@@ -117,23 +141,50 @@ public class Professor extends User{
                 OUTER:
                 while (true) {
                     System.out.println("Do you want to 1. Add, 2. Remove, 3. Exit: ");
-                    int action = s.nextInt();
+                    int action;
+                    while(true) {
+                        try {
+                            String ss = s.nextLine();
+                            action = Integer.parseInt(ss);
+                            break;
+                        } catch (NumberFormatException e){
+                            System.out.println("Enter correct ID");
+                            continue;
+                        }
+                    }
                     switch (action) {
                         case 1 -> {
                             int ss;
                             while(true){
                                 while(true){
                                 System.out.println("Choose a semester less than the course sem (" + manage.sem + ")");
-                                ss = s.nextInt();
-                                s.nextLine();
+                                    while(true) {
+                                        try {
+                                            String sss = s.nextLine();
+                                            ss = Integer.parseInt(sss);
+                                            break;
+                                        } catch (NumberFormatException e){
+                                            System.out.println("Enter correct ID");
+                                            continue;
+                                        }
+                                    }
                                 if(ss < manage.sem) break;
                                 else System.out.println("Wrong semester!");
                             }
                             while(true){
                                 System.out.println("Choose a course to add to prerequisites(Course ID): ");
                                 display_sem_course(ss);
-                                int cid = s.nextInt();
-                                s.nextLine();
+                                int cid;
+                                while(true) {
+                                    try {
+                                        String sss = s.nextLine();
+                                        cid = Integer.parseInt(sss);
+                                        break;
+                                    } catch (NumberFormatException e){
+                                        System.out.println("Enter correct ID");
+                                        continue;
+                                    }
+                                }
                                 Course c = course_exists(cid);
                                 if(c == null || !(courses.get(ss).contains(c))) System.out.println("Invalid course ID or course not in the chosen semester!");
                                 else {
@@ -148,9 +199,18 @@ public class Professor extends User{
                         }
                         case 2 -> {
                             System.out.println("Choose a course ID to remove from prerequisite list: " + manage.prereq);
-                            while (true) { 
-                                int cid = s.nextInt();
-                                s.nextLine();
+                            while (true) {
+                                int cid;
+                                while(true) {
+                                    try {
+                                        String ss = s.nextLine();
+                                        cid = Integer.parseInt(ss);
+                                        break;
+                                    } catch (NumberFormatException e){
+                                        System.out.println("Enter correct ID");
+                                        continue;
+                                    }
+                                }
                                 Course c = course_exists(cid);
                                 if(c == null || !(manage.prereq.contains(c))) System.out.println("Invalid course ID or course not in the prereq list!");
                                 else {
@@ -168,8 +228,17 @@ public class Professor extends User{
                 }
                 case 6 -> {
                     System.out.print("Enter new limit: ");
-                    int lim = s.nextInt();
-                    s.nextLine();
+                    int lim;
+                    while(true) {
+                        try {
+                            String ss = s.nextLine();
+                            lim = Integer.parseInt(ss);
+                            break;
+                        } catch (NumberFormatException e){
+                            System.out.println("Enter correct ID");
+                            continue;
+                        }
+                    }
                     manage.enrol_limit = lim;
                 }
                 case 7 -> {

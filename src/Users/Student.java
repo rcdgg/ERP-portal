@@ -58,7 +58,17 @@ public class Student extends User implements Complaints{
         while(true) {
             System.out.println("Choose from available courses(Enter Course ID): ");
             this.display_sem_course();
-            int reg_id = s.nextInt();
+            int reg_id;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    reg_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             c = course_exists(reg_id);
             if(c == null) System.out.println("Wrong course ID!");
             else break;
@@ -108,7 +118,17 @@ public class Student extends User implements Complaints{
         }
         Course c;
         while(true) {
-            int drop_id = s.nextInt();
+            int drop_id;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    drop_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             c = course_exists(drop_id);
             if(c == null) System.out.println("Wrong Course ID!");
             else break;
@@ -221,8 +241,17 @@ public class Student extends User implements Complaints{
         System.out.println("Choose from completed courses(Course ID): " + this.completed_courses);
         Course c;
         while(true){
-            int c_id = s.nextInt();
-            s.nextLine();
+            int c_id;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    c_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             c = course_exists(c_id);
             if(c == null) System.out.println("Wrong course ID!\n" + "Choose from completed courses(Course ID): " + this.completed_courses);
             else break;

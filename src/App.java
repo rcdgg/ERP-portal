@@ -15,7 +15,7 @@ public class App {
     static Scanner s = new Scanner(System.in);
     public static void main(String[] args) {
 
-        run();
+        while(true) run();
 
     }
 
@@ -40,7 +40,6 @@ public class App {
                     System.out.println("Enter a number!");
                 }
             }
-            s.nextLine();
             if(action == 5){
                 System.out.println("Closing portal...");
                 System.out.println("=====================================\n");
@@ -73,7 +72,6 @@ public class App {
                         System.out.println("Enter a number!");
                     }
                 }
-                s.nextLine();
                 if(action == 1){
                     while(true){
                         cred = login(stud);
@@ -105,7 +103,6 @@ public class App {
                         System.out.println("Enter a number!");
                     }
                 }
-                s.nextLine();
                 if(action == 1){
                     while(true){
                         cred = login(prof);
@@ -249,7 +246,6 @@ public class App {
                     System.out.println("Enter a number!");
                 }
             }
-            s.nextLine();
             switch (action) {
                 case 1 -> {
                     System.out.println("---");
@@ -275,8 +271,17 @@ public class App {
                     while(true){
                         System.out.print("Enter Student ID: ");
                         boolean done = false;
-                        int i = s.nextInt();
-                        s.nextLine();
+                        int i;
+                        while(true) {
+                            try {
+                                String ss = s.nextLine();
+                                i = Integer.parseInt(ss);
+                                break;
+                            } catch (NumberFormatException e){
+                                System.out.println("Enter correct ID");
+                                continue;
+                            }
+                        }
                         for(Student stud: tas){
                             if(stud.id == i){
                                 if(!stud.is_TA){
@@ -406,7 +411,6 @@ public class App {
                     System.out.println("Enter a number!");
                 }
             }
-            s.nextLine();
             switch (action) {
                 case 1 -> {
                     System.out.println("---");

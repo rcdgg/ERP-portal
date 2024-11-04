@@ -83,7 +83,16 @@ public class Admin extends User implements Complaints{
         Course course;
         while (true) { 
             System.out.printf("Enter sem number: ");
-            sem = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    sem = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             if(sem < 1 || sem > courses.size() || courses.get(sem).isEmpty()){
                 if(courses.get(sem).isEmpty()) System.out.println("No courses available this semester!");
                 else System.out.println("Wrong semester, try again!");
@@ -96,7 +105,16 @@ public class Admin extends User implements Complaints{
         int ind;
         while (true) { 
             System.out.printf("choose a course to remove(course ID): ");
-            ind = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    ind = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             course = course_exists(ind);
             if(course == null){
                 System.out.println("Wrong course ID, try again!");
@@ -141,7 +159,16 @@ public class Admin extends User implements Complaints{
         //prof id
         while (true) { 
             System.out.printf("Professor id: ");
-            prof_id = s.nextInt(); 
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    prof_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             Professor p = prof_exists(prof_id);
             if(p != null) break;
             else System.out.println("Wrong ID! Try again.");
@@ -149,7 +176,16 @@ public class Admin extends User implements Complaints{
         //sem number
         while (true) { 
             System.out.printf("Enter sem number: ");
-            sem = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    sem = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             if(sem < 1 || sem > courses.size()){
                 System.out.println("Wrong sem! try again.");
             }
@@ -158,7 +194,16 @@ public class Admin extends User implements Complaints{
         //credits
         while (true) { 
             System.out.printf("Enter credits: ");
-            cred = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    cred = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             if(cred != 2 && cred != 4){
                 System.out.println("A course cant be of " + cred + " credits!");
             }
@@ -167,7 +212,16 @@ public class Admin extends User implements Complaints{
         //course id
         while (true) { 
             System.out.printf("Enter a unique course ID: ");
-            course_id = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    course_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             if(course_exists(course_id) == null) break;          
             else System.out.println("Course Id already exists!");
         }
@@ -182,7 +236,16 @@ public class Admin extends User implements Complaints{
             int ss = 0;
             while(true){
                 System.out.println("Choose a semester less than this course sem (" + sem + ")(-1 to exit)");
-                ss = s.nextInt();
+                while(true) {
+                    try {
+                        String sss = s.nextLine();
+                        ss = Integer.parseInt(sss);
+                        break;
+                    } catch (NumberFormatException e){
+                        System.out.println("Enter correct ID");
+                        continue;
+                    }
+                }
                 if(ss == -1) break OUT;
                 if(ss < sem) break;
                 else System.out.println("Wrong semester!");
@@ -191,7 +254,17 @@ public class Admin extends User implements Complaints{
             while(true){
                 System.out.println("Choose a course to add to prerequisites(Course ID): ");
                 display_sem_course(ss);
-                int cid = s.nextInt();
+                int cid;
+                while(true) {
+                    try {
+                        String sss = s.nextLine();
+                        cid = Integer.parseInt(sss);
+                        break;
+                    } catch (NumberFormatException e){
+                        System.out.println("Enter correct ID");
+                        continue;
+                    }
+                }
                 Course c = course_exists(cid);
                 if(c == null || !(courses.get(ss).contains(c))) System.out.println("Invalid course ID or course not in the chosen semester!");
                 else {
@@ -219,14 +292,32 @@ public class Admin extends User implements Complaints{
         Scanner s = new Scanner(System.in);
         while(true){
             System.out.printf("Enter course ID: ");
-            course_id = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    course_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             c = course_exists(course_id);
             if(c == null) System.out.println("Not a valid course ID!");
             else break;
         }
         while(true){
             System.out.printf("Enter Professor ID: ");
-            prof_id = s.nextInt();
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    prof_id = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             p = prof_exists(prof_id);
             if(p == null) System.out.println("Not a valid Professor ID!");
             else break;
@@ -256,8 +347,17 @@ public class Admin extends User implements Complaints{
         Student stud;
         System.out.println("Choose a student(by ID): ");
         while(true){
-            int temp = s.nextInt();
-            s.nextLine();
+            int temp;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    temp = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             stud = stud_exists(temp);
             if(stud == null) System.out.println("Invalid student ID!");
             else break;
@@ -268,18 +368,25 @@ public class Admin extends User implements Complaints{
         System.out.println("Choose an action: ");
         while(true){
             System.out.println("1. Update Name  2. Update Number  3. Update grade");
-            int i = s.nextInt();
-            s.nextLine();
+            int i;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    i = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             switch (i) {
                 case 1 -> {
-                	s.nextLine();
                     String na = s.nextLine();
                     stud.name = na;
                     stud.display();
                 }
                     
                 case 2 -> {
-                	s.nextLine();
                     String na = s.nextLine();
                     stud.num = na;
                     stud.display();
@@ -290,10 +397,29 @@ public class Admin extends User implements Complaints{
                         break;
                     }
                     System.out.println("Choose a course ID: " + stud.stud_courses);
-                    int t = s.nextInt();
-                    s.nextLine();
+                    int t;
+                    while(true) {
+                        try {
+                            String ss = s.nextLine();
+                            t = Integer.parseInt(ss);
+                            break;
+                        } catch (NumberFormatException e){
+                            System.out.println("Enter correct ID");
+                            continue;
+                        }
+                    }
                     System.out.printf("Choose a Grade(integer between 0 - 10): ");
-                    int val = (int) s.nextFloat();
+                    int val;
+                    while(true) {
+                        try {
+                            String ss = s.nextLine();
+                            val = Integer.parseInt(ss);
+                            break;
+                        } catch (NumberFormatException e){
+                            System.out.println("Enter correct ID");
+                            continue;
+                        }
+                    }
                     for(int ii = 0; ii < stud.stud_courses.size(); ii++){
                         if(stud.stud_courses.get(ii).course_id == t){
                             stud.grades.put(t, val);
@@ -307,10 +433,9 @@ public class Admin extends User implements Complaints{
                 
                 default -> System.out.println("Not a valid action!");
             }
-            s.nextLine();
             System.out.println("Edit more? (y/n): ");
-            String ans = s.nextLine();
-            if(ans.equalsIgnoreCase("n") || ans.equalsIgnoreCase("No")) break;
+            String ans = s.nextLine().strip().toLowerCase();
+            if(ans.equals("n") || ans.equals("no")) break;
         }
     }
     
@@ -359,7 +484,17 @@ public class Admin extends User implements Complaints{
         OUTER:
         while (true) {
             System.out.printf("Filter by 1. Pending, 2. Resolved, 3. exit: ");
-            int view = s.nextInt();
+            int view;
+            while(true) {
+                try {
+                    String ss = s.nextLine();
+                    view = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
             switch (view) {
                 case 1 -> {
                     System.out.println("Pending complaints: ");
@@ -369,8 +504,7 @@ public class Admin extends User implements Complaints{
                                 System.out.println(stud.id + ": " + stud.view_pending_complaints());
                             }
                         }
-                    }   
-                    s.nextLine();
+                    }
                     while(true){
                         System.out.printf("Enter Student ID and index number of complaint(1-based) to take action on it(enter -1 to take no action): ");
                         //example input: 101 2 (101 is student id and 2 is the index of the complaint(2nd complaint in the list))
@@ -475,13 +609,30 @@ public class Admin extends User implements Complaints{
 
     public void change_add_drop(){
         System.out.print("Choose a semester: ");
-        int sem = sc.nextInt();
-        sc.nextLine();
+        int sem;
+        while(true) {
+            try {
+                String ss = sc.nextLine();
+                sem = Integer.parseInt(ss);
+                break;
+            } catch (NumberFormatException e){
+                System.out.println("Enter correct ID");
+                continue;
+            }
+        }
         while(sem > 9 || sem < 1){
             System.out.println("Not a valid course!");
             System.out.print("Choose a semester: ");
-            sem = sc.nextInt();
-            sc.nextLine();
+            while(true) {
+                try {
+                    String ss = sc.nextLine();
+                    sem = Integer.parseInt(ss);
+                    break;
+                } catch (NumberFormatException e){
+                    System.out.println("Enter correct ID");
+                    continue;
+                }
+            }
         }
         inputDeadline(sem);
     }
